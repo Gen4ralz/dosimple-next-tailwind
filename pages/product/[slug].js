@@ -35,8 +35,8 @@ export default function ProductScreen() {
     <Layout title={product.name}>
       <div className="py-2 mb-4">
         <Link href="/">
-          <button className="bg-indigo-700 text-white p-1 rounded">
-            Back to products
+          <button className="bg-indigo-700 text-white p-1 font-bold text-xl rounded">
+            <p className="px-2">&lt;</p>
           </button>
         </Link>
       </div>
@@ -48,6 +48,7 @@ export default function ProductScreen() {
             width={1080}
             height={1350}
             Layout="responsive"
+            className="rounded-lg"
           />
         </div>
         <div className="card p-5">
