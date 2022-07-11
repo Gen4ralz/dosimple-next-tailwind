@@ -1,29 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
 import data from '../../utils/data';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Store } from '../../utils/Store';
 
 export default function ProductScreen() {
   //Acess product detail from useRouter hook
+  const { state, dispatch } = useContext(Store); // in state -> we have cart and cartItem
   const { query } = useRouter();
   const { slug } = query;
   const product = data.products.find((x) => x.slug === slug);
+
   if (!product) {
     return (
-      <Layout>
-        <div className="justify-center flex">
-          <h1 className="py-40">Product Not Found</h1>
-        </div>
-      </Layout>
+      <div className="justify-center flex">
+        <h1 className="py-40">Product Not Found</h1>
+      </div>
     );
   }
+
+  // function add to cart need to use dispatch from StoreProvider for access to the context by useContext function.
+  const addToCartHandler = () => {
+    const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    if (product.stock < quantity) {
+      alert('Sorry, product is out of stock');
+    }
+    dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
+  };
+
   return (
     <Layout title={product.name}>
       <div className="py-2 mb-4">
         <Link href="/">
-          <button className="bg-green-100 p-1 rounded">Back to products</button>
+          <button className="bg-indigo-700 text-white p-1 rounded">
+            Back to products
+          </button>
         </Link>
       </div>
       <div className="grid md:grid-cols-4 md:gap-3">
@@ -60,6 +74,7 @@ export default function ProductScreen() {
                 ? 'primary-button w-full'
                 : 'secondary-button w-full'
             }
+            onClick={addToCartHandler}
           >
             <p className={product.stock > 0 ? 'text-white' : 'text-red-700'}>
               {product.stock > 0 ? 'Add to cart' : 'Out of stock'}
