@@ -30,3 +30,9 @@ a {
 .secondary-button {
   @apply rounded py-2 px-4 shadow border border-gray-200 shadow bg-red-200;
 }
+
+input,
+select,
+textarea {
+  @apply rounded border p-2 outline-none ring-indigo-700 focus:ring;
+}

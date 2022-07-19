@@ -11,10 +11,16 @@ export default function CartScreen() {
   const {
     cart: { cartItems },
   } = state;
+
   const updateCartHandler = (item, qty) => {
     const quantity = Number(qty);
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...item, quantity } });
   };
+
+  const removeItemHandler = (item) => {
+    dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  };
+
   return (
     <Layout title="Shopping Cart">
       <h1 className="font-bold text-xl mb-10 mt-5 md:px-4">Order Details</h1>
@@ -74,6 +80,7 @@ export default function CartScreen() {
                       <button
                         type="button"
                         className="font-medium text-indigo-600 px-2"
+                        onClick={() => removeItemHandler(item)}
                       >
                         Remove
                       </button>
@@ -94,7 +101,7 @@ export default function CartScreen() {
             </div>
             <div className="mt-6">
               <button
-                onClick={() => router.push('/shipping')}
+                onClick={() => router.push('/login?redirect=/shipping')}
                 className="bg-indigo-700 text-white text-base px-6 py-3 rounded-md flex items-center justify-center w-full"
               >
                 Checkout
