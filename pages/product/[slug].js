@@ -59,42 +59,48 @@ export default function ProductScreen() {
             <Image
               src={product.image}
               alt={product.slug}
-              width={1080}
-              height={1350}
+              width={600}
+              height={800}
               Layout="responsive"
               className="rounded-lg"
             />
           </div>
-          <div className="card p-5">
-            <ul>
-              <li>
-                <h1 className="text-lg">{product.name}</h1>
-              </li>
-              <li>
-                <p>
-                  {product.rating} of {product.numReviews} reviews
-                </p>
-                <p>{product.description}</p>
-              </li>
-            </ul>
-          </div>
-          <div className="card p-5">
-            <div className="mb-4 flex justify-between">
-              <div>Price</div>
-              <div>{product.price} Baht</div>
+          <div>
+            <div className="card p-5">
+              <ul>
+                <li>
+                  <h1 className="text-lg">{product.name}</h1>
+                </li>
+                <li>
+                  <p>
+                    {product.rating} of {product.numReviews} reviews
+                  </p>
+                  <p>{product.description}</p>
+                </li>
+              </ul>
             </div>
-            <button
-              className={
-                product.stock > 0
-                  ? 'primary-button w-full'
-                  : 'secondary-button w-full'
-              }
-              onClick={openModal}
-            >
-              <p className={product.stock > 0 ? 'text-white' : 'text-red-700'}>
-                {product.stock > 0 ? 'Add to cart' : 'Out of stock'}
-              </p>
-            </button>
+          </div>
+          <div>
+            <div className="card p-5">
+              <div className="mb-4 flex justify-between">
+                <div>Price</div>
+                <div>{product.price} Baht</div>
+              </div>
+              <button
+                className={
+                  product.stock > 0
+                    ? 'primary-button w-full'
+                    : 'secondary-button w-full'
+                }
+                onClick={openModal}
+              >
+                <p
+                  className={product.stock > 0 ? 'text-white' : 'text-red-700'}
+                >
+                  {product.stock > 0 ? 'Add to cart' : 'Out of stock'}
+                </p>
+              </button>
+            </div>
           </div>
         </div>
         <Transition appear show={isOpen} as={Fragment}>
