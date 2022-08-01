@@ -7,7 +7,7 @@ export const Store = createContext();
 const initialState = {
   cart: Cookies.get('cart') // replace default object -> search cookie in cart.
     ? JSON.parse(Cookies.get('cart')) // if it does exist use Json convert cart in their cookie.
-    : { cartItems: [] }, // -> otherwise set cartItem to empty array.
+    : { cartItems: [], shippingAddress: {} }, // -> otherwise set cartItem to empty array.
 };
 
 function reducer(state, action) {
@@ -43,6 +43,15 @@ function reducer(state, action) {
       return {
         ...state,
         cart: { cartItems: [], shippingAddress: {}, paymentMethod: '' },
+      };
+    }
+    case 'SAVE_SHIPPING_ADDRESS': {
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: { ...state.cart.shippingAddress, ...action.payload },
+        },
       };
     }
     default:
