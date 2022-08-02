@@ -1,34 +1,39 @@
 import React, { useContext, useState, Fragment } from 'react';
 import Layout from '../../components/Layout';
 import { useRouter } from 'next/router';
-import data from '../../utils/data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Store } from '../../utils/Store';
 import { Dialog, Transition } from '@headlessui/react';
+import db from '../../utils/db';
+import Product from '../../models/Product';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-export default function ProductScreen() {
+export default function ProductScreen(props) {
   //Acess product detail from useRouter hook
+  const { product } = props;
   const { state, dispatch } = useContext(Store); // in state -> we have cart and cartItem
-  const { query } = useRouter();
   const router = useRouter();
-  const { slug } = query;
-  const product = data.products.find((x) => x.slug === slug);
 
   if (!product) {
     return (
-      <div className="justify-center flex">
-        <h1 className="py-40">Product Not Found</h1>
-      </div>
+      <Layout title="Product Not Found">
+        <div className="justify-center flex">
+          <h1 className="py-40">Product Not Found</h1>
+        </div>
+      </Layout>
     );
   }
 
   // function add to cart need to use dispatch from StoreProvider for access to the context by useContext function.
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    if (product.stock < quantity) {
-      alert('Sorry, product is out of stock');
+    const { data } = await axios.get(`/api/products/${product._id}`); // ajax request for check quantity of the product. -> implement product api
+
+    if (data.stock < quantity) {
+      return toast.error('Sorry, product is out of stock');
     }
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } });
     router.push('/cart');
@@ -170,4 +175,13 @@ export default function ProductScreen() {
       </Layout>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+  return { props: { product: product ? db.convertDocToObj(product) : null } };
 }
