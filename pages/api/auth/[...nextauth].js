@@ -1,11 +1,13 @@
-import NextAuth from 'next-auth/next';
-import Credentials from 'next-auth/providers/credentials';
-import db from '../../../utils/db';
 import bcryptjs from 'bcryptjs';
+import NextAuth from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
 import User from '../../../models/User';
+import db from '../../../utils/db';
 
 export default NextAuth({
-  session: { strategy: 'jwt' },
+  session: {
+    strategy: 'jwt',
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user?._id) token._id = user._id;
@@ -13,16 +15,18 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
-      if (token?._id) session.user.id = token.id;
+      if (token?._id) session.user._id = token._id;
       if (token?.isAdmin) session.user.isAdmin = token.isAdmin;
       return session;
     },
   },
   providers: [
-    Credentials({
+    CredentialsProvider({
       async authorize(credentials) {
         await db.connect();
-        const user = await User.findOne({ email: credentials.email });
+        const user = await User.findOne({
+          email: credentials.email,
+        });
         await db.disconnect();
         if (user && bcryptjs.compareSync(credentials.password, user.password)) {
           return {

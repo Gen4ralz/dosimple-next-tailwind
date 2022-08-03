@@ -62,9 +62,6 @@ export default function CartScreen() {
                       <p>{item.name}</p>
                       <p className="ml-4">{item.price} Baht</p>
                     </div>
-                    <p className="mt-1 text-sm text-gray-500 px-2">
-                      {item.description}
-                    </p>
                   </div>
                   <div className="flex flex-1 items-end justify-between text-sm">
                     <p className="text-gray-500 px-2">

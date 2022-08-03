@@ -35,7 +35,7 @@ export default function PaymentScreen() {
       <CheckoutWizard activeStep={2} />
       <div className="mb-4">
         <form className="mx-auto max-w-screen-md" onSubmit={submitHandler}>
-          <h1 className="text-xl mb-4">Payment Method</h1>
+          <h1 className="text-xl mb-4 font-bold">Payment Method</h1>
           {['PayPal', 'Crypto', 'Bank Transfer', 'Cash On Delivery'].map(
             (payment) => (
               <div key={payment} className="mb-4">
@@ -69,3 +69,5 @@ export default function PaymentScreen() {
     </Layout>
   );
 }
+
+PaymentScreen.auth = true;
