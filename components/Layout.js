@@ -6,7 +6,6 @@ import { ToastContainer } from 'react-toastify';
 import { signOut, useSession } from 'next-auth/react';
 import 'react-toastify/dist/ReactToastify.css';
 import { Menu } from '@headlessui/react';
-import DropdownLink from './DropdownLink';
 import Cookies from 'js-cookie';
 
 export default function Layout({ title, children }) {
@@ -57,28 +56,32 @@ export default function Layout({ title, children }) {
                   <Menu.Button className="text-white font-bold">
                     {session.user.name}
                   </Menu.Button>
-                  <Menu.Items className="absolute right-0 w-56 origin-top-right shadow-lg bg-white rounded">
+                  <Menu.Items className="absolute right-0 w-56 origin-top-right bg-white  shadow-lg ">
                     <Menu.Item>
-                      <DropdownLink className="dropdown-link" href="/profile">
+                      <a className="dropdown-link" href="/profile">
                         Profile
-                      </DropdownLink>
+                      </a>
                     </Menu.Item>
                     <Menu.Item>
-                      <DropdownLink
-                        className="dropdown-link"
-                        href="/order-history"
-                      >
+                      <a className="dropdown-link" href="/order-history">
                         Order History
-                      </DropdownLink>
+                      </a>
                     </Menu.Item>
+                    {session.user.isAdmin && (
+                      <Menu.Item>
+                        <a className="dropdown-link" href="/admin/dashboard">
+                          Admin Dashboard
+                        </a>
+                      </Menu.Item>
+                    )}
                     <Menu.Item>
-                      <DropdownLink
+                      <a
                         className="dropdown-link"
                         href="#"
                         onClick={logoutHandler}
                       >
                         Logout
-                      </DropdownLink>
+                      </a>
                     </Menu.Item>
                   </Menu.Items>
                 </Menu>
