@@ -57,6 +57,7 @@ export default function PaymentScreen() {
             <button
               onClick={() => router.push('/shipping')}
               className="bg-black text-white text-base px-6 py-3 rounded-md flex items-center"
+              type="button"
             >
               Back
             </button>
