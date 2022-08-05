@@ -3,6 +3,7 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import User from '../../../models/User';
 import db from '../../../utils/db';
+import LineProvider from 'next-auth/providers/line';
 
 export default NextAuth({
   session: {
@@ -39,6 +40,10 @@ export default NextAuth({
         }
         throw new Error('Invalid email or password');
       },
+    }),
+    LineProvider({
+      clientId: process.env.LINE_CLIENT_ID,
+      clientSecret: process.env.LINE_CLIENT_SECRET,
     }),
   ],
 });

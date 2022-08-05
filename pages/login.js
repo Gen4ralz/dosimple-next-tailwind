@@ -91,6 +91,11 @@ export default function LoginScreen() {
           </Link>
         </div>
       </form>
+      <div>
+        <button onClick={() => signIn('line')} className="bg-green-500 w-full">
+          LINE Login
+        </button>
+      </div>
     </Layout>
   );
 }
