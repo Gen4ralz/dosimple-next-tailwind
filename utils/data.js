@@ -27,6 +27,8 @@ const data = {
       numReviews: 30,
       stock: 5,
       description: 'A popular sets',
+      color: ['Brown', 'Cream', 'Blue', 'Green'],
+      size: 'Freesize',
     },
     {
       name: 'Caesar Sets',
@@ -39,6 +41,8 @@ const data = {
       numReviews: 10,
       stock: 5,
       description: 'A popular sets',
+      color: ['Brown', 'Coffee', 'White'],
+      size: 'Freesize',
     },
     {
       // _id: '3',
@@ -52,6 +56,8 @@ const data = {
       numReviews: 10,
       stock: 0,
       description: 'A popular sets',
+      color: ['Brown', 'Cream'],
+      size: 'Freesize',
     },
     {
       // _id: '4',
@@ -65,6 +71,8 @@ const data = {
       numReviews: 5,
       stock: 5,
       description: 'A popular sets',
+      color: ['Brown', 'Cream'],
+      size: 'Freesize',
     },
     {
       //   _id: '5',
@@ -79,6 +87,8 @@ const data = {
       stock: 5,
       description:
         'รุ่นนี้ทางร้านดีไซน์เป็นเบลเซอร์ทรง oversize  ตัวยาว ใส่คลุมแมทช์กับมินิเดรสตัวสั้น กระโปรงผ่าหน้า เพิ่มดีกรีความแซ่บบ เผ็ช ดูแพง!! เสื้อมีซับใน แต่งกระเป๋าใช้งานได้จริง จะใส่เป็นเซ็ต หรือใส่แยกได้หมด เหมือนซื้อเบลเซอร์แถมเดรสไปอีกตัว แบบคุ้มจบในชุดเดียว มินิเดรสแนะนำสำหรับสาวไซส์มินิ รุ่นนี้ตัวสั้นนะคะ (นางแบบสูง 162 ) ฟรีไซส์สม็อคด้านหลัง ผ้าดีทรงสวยเป๊ะ ลุคนี้บอสบอกเต็มสิบไม่หัก จัดไปค่ะ..',
+      color: ['Brown', 'Cream'],
+      size: 'Freesize',
     },
   ],
 };

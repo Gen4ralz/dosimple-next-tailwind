@@ -70,6 +70,7 @@ export default function ProductScreen(props) {
                 {product.rating} of {product.numReviews} reviews
               </li>
               <li>Description: {product.description}</li>
+              <li>Colors: {product.color}</li>
             </ul>
           </div>
         </div>

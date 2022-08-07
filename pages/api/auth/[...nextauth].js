@@ -44,6 +44,27 @@ export default NextAuth({
     LineProvider({
       clientId: process.env.LINE_CLIENT_ID,
       clientSecret: process.env.LINE_CLIENT_SECRET,
+      id: 'line',
+      name: 'Line',
+      type: 'oauth',
+      version: '2.1',
+      scope: 'profile openId email',
+      params: {
+        grant_type: 'authorization_code',
+      },
+      accessTokenUrl: 'https://api.line.me/oauth2/v2.1/token',
+      authorizationUrl:
+        'https://access.line.me/oauth2/v2.1/authorize?response_type=code',
+      profileUrl: 'https://api.line.me/v2/profile',
+      openId: true,
+      profile: (profile) => {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
     }),
   ],
 });
